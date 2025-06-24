@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AuthState, AuthStatus, LoginCredentials, LoginResponse } from '../types';
 import { API_BASE_URL, ENDPOINTS, AUTH_CHECK_DELAY_MS } from '@/utils/constants';
-import { getStoredToken, setStoredToken, removeStoredToken } from '@/utils/storage';
+import { getStoredToken, setStoredToken, removeStoredToken, setStoredCertNo } from '@/utils/storage';
 
 export function useAuth() {
   const [authState, setAuthState] = useState<AuthState>({
@@ -25,12 +25,13 @@ export function useAuth() {
 
       const result: LoginResponse = await response.json();
 
-      if (result.accessToken) {
-        const storageResult = setStoredToken(result.accessToken);
-        if (storageResult.success) {
+      if (result.jwt_token) {
+        const storageResult = setStoredToken(result.jwt_token);
+        const certNoResult = setStoredCertNo(result.cert_no);
+        if (storageResult.success && certNoResult.success) {
           setAuthStatus('authenticated');
         } else {
-          setAuthStatus('error', `토큰 저장 실패: ${storageResult.error}`);
+          setAuthStatus('error', `토큰 저장 실패`);
         }
       } else {
         setAuthStatus('error', `로그인 실패: ${JSON.stringify(result)}`);

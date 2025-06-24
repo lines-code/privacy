@@ -45,7 +45,7 @@ export function QRCheckerApp() {
           <div className="flex flex-col items-center space-y-6">
             {/* Logout Button */}
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-gray-800">회사 캘린더 QR 코드</h1>
+              <h1 className="text-2xl font-bold text-gray-800">출퇴근 QR 코드</h1>
               <button
                 onClick={logout}
                 className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"

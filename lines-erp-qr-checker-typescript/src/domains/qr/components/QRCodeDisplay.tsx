@@ -8,15 +8,15 @@ interface QRCodeDisplayProps {
 }
 
 export function QRCodeDisplay({ qrState, onRefresh }: QRCodeDisplayProps) {
-  const { imageUrl, responseData, isLoading, error } = qrState;
+  const { responseData, isLoading, error } = qrState;
 
   return (
     <div className="flex flex-col items-center space-y-6">
       {/* QR Code Image */}
       <div className="relative">
-        {imageUrl ? (
+        {responseData?.qr_code ? (
           <img
-            src={imageUrl}
+            src={responseData?.qr_code}
             alt="QR 코드"
             className="w-72 h-72 border border-gray-300 rounded-lg shadow-lg"
           />
@@ -43,26 +43,14 @@ export function QRCodeDisplay({ qrState, onRefresh }: QRCodeDisplayProps) {
         {isLoading ? '새로고침 중...' : '수동 새로고침'}
       </button>
 
-      {/* Response Data Log */}
-      <div className="w-80 max-h-72 overflow-y-auto bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
-        <h3 className="font-semibold text-gray-700 mb-2">응답 데이터:</h3>
-        
-        {error ? (
-          <div className="text-red-600 whitespace-pre-wrap">{error}</div>
-        ) : responseData ? (
-          <pre className="text-sm text-gray-600 whitespace-pre-wrap">
-            {JSON.stringify(responseData, null, 2)}
-          </pre>
-        ) : (
-          <div className="text-gray-500">데이터 없음</div>
-        )}
-      </div>
-
       {/* Auto-refresh Indicator */}
       <div className="text-sm text-gray-600 text-center">
-        <p>🔄 자동 새로고침: 10초마다</p>
+        <p>🔄 자동 새로고침: 5분마다 자동으로 업데이트됩니다</p>
         <p className="text-xs text-gray-500 mt-1">
           로그인이 유지되는 동안 QR 코드가 자동으로 업데이트됩니다
+        </p>
+        <p className="text-xs text-gray-500 mt-1">
+          본인의 휴대폰을 이용해서 QR을 인식 시켜주세요.
         </p>
       </div>
     </div>

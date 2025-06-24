@@ -1,10 +1,12 @@
 export interface LoginCredentials {
-  id: string;
+  email: string;
   password: string;
 }
 
 export interface LoginResponse {
-  accessToken?: string;
+  jwt_token: string;
+  cert_no: string;
+  expire: string;
   [key: string]: unknown;
 }
 

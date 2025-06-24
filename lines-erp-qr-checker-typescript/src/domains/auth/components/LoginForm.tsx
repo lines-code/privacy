@@ -11,7 +11,7 @@ interface LoginFormProps {
 
 export function LoginForm({ onLogin, isLoading, error }: LoginFormProps) {
   const [credentials, setCredentials] = useState<LoginCredentials>({
-    id: '',
+    email: '',
     password: '',
   });
 
@@ -30,20 +30,20 @@ export function LoginForm({ onLogin, isLoading, error }: LoginFormProps) {
   };
 
   // Validation logic colocated with the form
-  const isFormValid = credentials.id.trim() !== '' && credentials.password.trim() !== '';
+  const isFormValid = credentials.email.trim() !== '' && credentials.password.trim() !== '';
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">회사 캘린더 QR 코드</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">시스템 관리자 QR 접근</h1>
       
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <input
           type="text"
-          placeholder="아이디 입력"
-          value={credentials.id}
-          onChange={handleInputChange('id')}
+          placeholder="이메일 입력"
+          value={credentials.email}
+          onChange={handleInputChange('email')}
           disabled={isLoading}
-          className="w-60 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+          className="w-70 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
           required
         />
         
@@ -53,14 +53,14 @@ export function LoginForm({ onLogin, isLoading, error }: LoginFormProps) {
           value={credentials.password}
           onChange={handleInputChange('password')}
           disabled={isLoading}
-          className="w-60 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+          className="w-70 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
           required
         />
         
         <button
           type="submit"
           disabled={isLoading || !isFormValid}
-          className="w-60 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="w-70 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
         >
           {isLoading ? '로그인 중...' : '로그인'}
         </button>

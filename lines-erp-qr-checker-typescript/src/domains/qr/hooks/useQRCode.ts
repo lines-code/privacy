@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { QRCodeState, QRCodeResponse } from '../types';
-import { API_BASE_URL, ENDPOINTS, CERT_NO, QR_CODE_REFRESH_INTERVAL_MS } from '@/utils/constants';
+import { API_BASE_URL, ENDPOINTS, QR_CODE_REFRESH_INTERVAL_MS } from '@/utils/constants';
+import { getStoredCertNo } from '@/utils/storage';
 
 interface UseQRCodeProps {
   accessToken: string | null;
@@ -26,7 +27,8 @@ export function useQRCode({ accessToken, onTokenExpired }: UseQRCodeProps) {
     setQRState(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const response = await fetch(`${API_BASE_URL}${ENDPOINTS.QR_CODE(CERT_NO)}`, {
+      const certNoResult = getStoredCertNo();
+      const response = await fetch(`${API_BASE_URL}${ENDPOINTS.QR_CODE(certNoResult.data || '')}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
